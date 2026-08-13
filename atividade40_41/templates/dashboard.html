@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+  <div><h1 class="h3 mb-1">Minhas tarefas</h1><p class="text-secondary mb-0">Gerencie e filtre suas atividades sem recarregar a página.</p></div>
+  <a class="btn btn-primary" href="{{ url_for('nova_tarefa') }}"><i class="bi bi-plus-lg"></i> Nova tarefa</a>
+</div>
+<div class="alert alert-info d-flex gap-2 align-items-start"><i class="bi bi-lightbulb-fill"></i><div><strong>Frase do dia:</strong> {{ conselho }}</div></div>
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="h5 mb-0">Lista</h2>
+      <select id="statusFilter" class="form-select form-select-sm w-auto" aria-label="Filtrar por status">
+        <option>Todas</option><option>Pendente</option><option>Em andamento</option><option>Concluída</option>
+      </select>
+    </div>
+    <div id="tasksContainer" class="row g-3">
+      {% for tarefa in tarefas %}
+      <div class="col-12 task-item" data-task-id="{{ tarefa['id'] }}">
+        <div class="card task-card status-{{ tarefa['status']|lower|replace(' ', '-')|replace('í','i') }} shadow-sm"><div class="card-body">
+          <div class="d-flex justify-content-between gap-3">
+            <div><h3 class="h5 mb-1">{{ tarefa['titulo'] }}</h3><p class="mb-2 text-secondary">{{ tarefa['descricao'] or 'Sem descrição.' }}</p><span class="badge text-bg-secondary">{{ tarefa['status'] }}</span></div>
+            <div class="d-flex gap-2 align-items-start flex-wrap justify-content-end">
+              <a class="btn btn-sm btn-outline-primary" href="{{ url_for('editar_tarefa', task_id=tarefa['id']) }}" title="Editar"><i class="bi bi-pencil"></i></a>
+              {% if tarefa['status'] != 'Concluída' %}<button class="btn btn-sm btn-outline-success btn-complete" data-id="{{ tarefa['id'] }}" title="Concluir"><i class="bi bi-check-lg"></i></button>{% endif %}
+              <button class="btn btn-sm btn-outline-danger btn-delete" data-id="{{ tarefa['id'] }}" title="Excluir"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      {% else %}
+      <div class="col-12 empty-state"><div class="card"><div class="card-body text-center text-secondary py-5"><i class="bi bi-inbox display-5"></i><p class="mt-2 mb-0">Nenhuma tarefa cadastrada.</p></div></div></div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card shadow-sm"><div class="card-body"><h2 class="h5">Progresso</h2><canvas id="progressChart" height="220"></canvas></div></div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,7 @@
+body { min-height: 100vh; }
+.task-card { border-left: .4rem solid transparent; transition: transform .15s ease, box-shadow .15s ease; }
+.task-card:hover { transform: translateY(-2px); }
+.status-pendente { border-left-color: #ffc107; background-color: rgba(255, 193, 7, .08); }
+.status-em-andamento { border-left-color: #0d6efd; background-color: rgba(13, 110, 253, .08); }
+.status-concluida { border-left-color: #198754; background-color: rgba(25, 135, 84, .08); }
+canvas { max-height: 360px; }

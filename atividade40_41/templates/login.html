@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow-sm"><div class="card-body p-4">
+      <h2 class="h4 mb-3"><i class="bi bi-box-arrow-in-right"></i> Login</h2>
+      <form method="post">
+        <div class="mb-3"><label class="form-label">E-mail</label><input class="form-control" type="email" name="email" required></div>
+        <div class="mb-3"><label class="form-label">Senha</label><input class="form-control" type="password" name="senha" required></div>
+        <button class="btn btn-primary w-100" type="submit">Entrar</button>
+      </form>
+      <p class="small text-center mt-3 mb-0">Não tem conta? <a href="{{ url_for('registro') }}">Cadastre-se</a></p>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

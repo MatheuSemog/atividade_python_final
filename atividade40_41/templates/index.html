@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Início - Painel de Tarefas{% endblock %}
+{% block content %}
+<div class="row justify-content-center py-5">
+  <div class="col-lg-7 text-center">
+    <i class="bi bi-check2-square display-1 text-primary"></i>
+    <h1 class="display-5 fw-bold mt-3">Painel de Controle de Tarefas</h1>
+    <p class="lead text-secondary">Organize tarefas, acompanhe o progresso e mantenha o foco.</p>
+    <div class="d-flex justify-content-center gap-2">
+      <a class="btn btn-primary btn-lg" href="{{ url_for('login') }}">Entrar</a>
+      <a class="btn btn-outline-primary btn-lg" href="{{ url_for('registro') }}">Criar conta</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
